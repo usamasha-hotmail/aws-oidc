@@ -3,19 +3,21 @@ on: [push]
 
 env: 
   AWS_REGION: ${{ secrets.AWS_REGION }}
-  IAMROLE_GIHUB: ${{ secrets.IAMROLE_GITHUB }}
+  IAMROLE_GITHUB: ${{ secrets.IAMROLE_GITHUB }}
 
 jobs:
-  runs-on: ubuntu-latest
-  steps:
-  - name: clone checkout
-    uses: actions\checkout@v4
+  AssumeRole:
+    runs-on: ubuntu-latest
+    steps:
+    - name: clone checkout
+      uses: actions\checkout@v4
 
-  - name: config AWS role
-    uses: aws-actions/configure-aws-credentials@v4
-    with: 
-      role-to-asume: ${{env.IAMROLE_GIHUB}} 
-      role-session-name: github-actions-federation
-      aws-region: ${{ env.AWS_REGION }}
-  - name: list buckets
-    run: aws s3 ls    
+    - name: config AWS role
+      uses: aws-actions/configure-aws-credentials@v4
+      with: 
+        role-to-assume: ${{env.IAMROLE_GITHUB}} 
+        role-session-name: github-actions-federation
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: list buckets
+      run: aws s3 ls    
