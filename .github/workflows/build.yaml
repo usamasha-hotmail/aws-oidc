@@ -9,6 +9,9 @@ env:
 jobs:
   AssumeRole:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     steps:
     - name: clone checkout
       uses: actions/checkout@v4
@@ -16,7 +19,7 @@ jobs:
     - name: config AWS role
       uses: aws-actions/configure-aws-credentials@v4
       with: 
-        role-to-assume: ${{ env.IAMROLE_GITHUB }} 
+        role-to-assume: ${{env.IAMROLE_GITHUB}} 
         role-session-name: github-actions-federation
         aws-region: ${{ env.AWS_REGION }}
 
