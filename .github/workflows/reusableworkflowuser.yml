@@ -1,20 +1,41 @@
-name: calling resuable workflow
+name: CICD workflow from Sandbox to Production 
 
 on: 
     workflow_dispatch:
 
 jobs:
-  work-like-it:
+  Build-Package:
     runs-on: ubuntu-latest
     
     steps:
       - name: runonline
-        run: echo "usama Shahihd"
+        run: echo "Code Compilation"
   
-  docker:
+  SandBox-Deployment:
+    needs: Build-Package
     uses: usamasha-hotmail/AWS-OIDC/.github/workflows/buildandpublish.yml@main
     with:
       image_name: "usamaimage"
-      tag: "usamatag"
+      tag: "SandBox"
 
+  Dev-Deployment:
+    needs: Build-Package
+    uses: usamasha-hotmail/AWS-OIDC/.github/workflows/buildandpublish.yml@main
+    with:
+      image_name: "usamaimage"
+      tag: "Development"
+        
+  Stage-Deployment:
+    needs: Dev-Deployment
+    uses: usamasha-hotmail/AWS-OIDC/.github/workflows/buildandpublish.yml@main
+    with:
+      image_name: "usamaimage"
+      tag: "Statging"
+
+  Prod-Deployment:
+   needs: Stage-Deployment 
+   uses: usamasha-hotmail/AWS-OIDC/.github/workflows/buildandpublish.yml@main
+   with:
+     image_name: "usamaimage"
+     tag: "Production"
     
