@@ -20,14 +20,14 @@ jobs:
   
   SandBox:
     needs: Build-Package
-    if:  ${{inputs.Env-flow}} == 'SandBox'
+    if:  ${{inputs.Env-flow}} == "SandBox"
     uses: usamasha-hotmail/AWS-OIDC/.github/workflows/buildandpublish.yml@main
     with:
       image_name: "usamaimage"
       tag: "SandBox"
 
   Dev:
-    if:  ${{inputs.Env-flow}} != 'SandBox'
+    if:  ${{inputs.Env-flow}} != "SandBox"
     needs: Build-Package
     uses: usamasha-hotmail/AWS-OIDC/.github/workflows/buildandpublish.yml@main
     with:
