@@ -27,6 +27,7 @@ jobs:
       tag: "SandBox"
 
   Dev-Deployment:
+    if:  ${{inputs.Env-flow}} != 'SandBox'
     needs: Build-Package
     uses: usamasha-hotmail/AWS-OIDC/.github/workflows/buildandpublish.yml@main
     with:
@@ -34,6 +35,7 @@ jobs:
       tag: "Development"
         
   Stage-Deployment:
+    if:  ${{inputs.Env-flow}} != 'SandBox'
     needs: Dev-Deployment
     uses: usamasha-hotmail/AWS-OIDC/.github/workflows/buildandpublish.yml@main
     with:
@@ -41,6 +43,7 @@ jobs:
       tag: "Statging"
 
   Prod-Deployment:
+   if:  ${{inputs.Env-flow}} != 'SandBox'
    needs: Stage-Deployment 
    uses: usamasha-hotmail/AWS-OIDC/.github/workflows/buildandpublish.yml@main
    with:
