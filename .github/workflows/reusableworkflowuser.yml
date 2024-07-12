@@ -2,6 +2,13 @@ name: CICD workflow from Sandbox to Production
 
 on: 
     workflow_dispatch:
+      inputs:
+        Env-flow:
+          description: "Select your env."
+          type: list
+          default:  |
+            - SandBox
+            - Dev to Prod
 
 jobs:
   Build-Package:
