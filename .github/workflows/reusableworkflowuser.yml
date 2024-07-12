@@ -16,17 +16,17 @@ jobs:
     
     steps:
       - name: runonline
-        run: echo "Code Compilation"
+        run: echo ${{inputs.Env-flow}}
   
-  SandBox-Deployment:
-    if:  ${{inputs.Env-flow}} == 'SandBox'
+  SandBox:
     needs: Build-Package
+    if:  ${{inputs.Env-flow}} == 'SandBox'
     uses: usamasha-hotmail/AWS-OIDC/.github/workflows/buildandpublish.yml@main
     with:
       image_name: "usamaimage"
       tag: "SandBox"
 
-  Dev-Deployment:
+  Dev:
     if:  ${{inputs.Env-flow}} != 'SandBox'
     needs: Build-Package
     uses: usamasha-hotmail/AWS-OIDC/.github/workflows/buildandpublish.yml@main
@@ -34,17 +34,17 @@ jobs:
       image_name: "usamaimage"
       tag: "Development"
         
-  Stage-Deployment:
+  Stage:
     if:  ${{inputs.Env-flow}} != 'SandBox'
-    needs: Dev-Deployment
+    needs: Dev
     uses: usamasha-hotmail/AWS-OIDC/.github/workflows/buildandpublish.yml@main
     with:
       image_name: "usamaimage"
       tag: "Statging"
 
-  Prod-Deployment:
+  Prod:
    if:  ${{inputs.Env-flow}} != 'SandBox'
-   needs: Stage-Deployment 
+   needs: Stage 
    uses: usamasha-hotmail/AWS-OIDC/.github/workflows/buildandpublish.yml@main
    with:
      image_name: "usamaimage"
