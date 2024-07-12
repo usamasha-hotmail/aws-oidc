@@ -5,8 +5,8 @@ on:
       inputs:
         Env-flow:
           description: "Select your env."
-          type: list
-          default:  |
+          type: choice
+          options: 
             - SandBox
             - Dev to Prod
 
@@ -19,6 +19,7 @@ jobs:
         run: echo "Code Compilation"
   
   SandBox-Deployment:
+    if:  ${{inputs.Env-flow}} == 'SandBox'
     needs: Build-Package
     uses: usamasha-hotmail/AWS-OIDC/.github/workflows/buildandpublish.yml@main
     with:
