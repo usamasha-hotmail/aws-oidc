@@ -14,7 +14,7 @@ jobs:
   docker:
     uses: usamasha-hotmail/usama-resuableworkflow/.github/workflows/buildandpublish.yml@main
     with:
-        image_name: "usama image"
-        tag: "usama tag"
+      image_name: "usamaimage"
+      tag: "usamatag"
 
     
