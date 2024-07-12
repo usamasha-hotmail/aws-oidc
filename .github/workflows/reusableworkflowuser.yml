@@ -5,10 +5,8 @@ on:
       inputs:
         Env-flow:
           description: "Select your env."
-          type: choice
-          options: 
-            - SandBox
-            - Dev to Prod
+          type: boolean
+          default: false
 
 jobs:
   Build-Package:
@@ -20,14 +18,14 @@ jobs:
   
   SandBox:
     needs: Build-Package
-    if:  ${{inputs.Env-flow}} == "SandBox"
+    if:  ${{ inputs.Env-flow == true }} 
     uses: usamasha-hotmail/AWS-OIDC/.github/workflows/buildandpublish.yml@main
     with:
       image_name: "usamaimage"
       tag: "SandBox"
 
   Dev:
-    if:  ${{inputs.Env-flow}} != "SandBox"
+    if:  ${{ inputs.Env-flow == false }}
     needs: Build-Package
     uses: usamasha-hotmail/AWS-OIDC/.github/workflows/buildandpublish.yml@main
     with:
@@ -35,7 +33,7 @@ jobs:
       tag: "Development"
         
   Stage:
-    if:  ${{inputs.Env-flow}} != 'SandBox'
+    if:  ${{ inputs.Env-flow == false }}
     needs: Dev
     uses: usamasha-hotmail/AWS-OIDC/.github/workflows/buildandpublish.yml@main
     with:
@@ -43,7 +41,7 @@ jobs:
       tag: "Statging"
 
   Prod:
-   if:  ${{inputs.Env-flow}} != 'SandBox'
+   if:  ${{ inputs.Env-flow == false }}
    needs: Stage 
    uses: usamasha-hotmail/AWS-OIDC/.github/workflows/buildandpublish.yml@main
    with:
