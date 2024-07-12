@@ -1,0 +1,20 @@
+name: calling resuable workflow
+
+on: 
+    workflow_dispatch:
+
+jobs:
+  work-like-it:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: runonline
+        run: echo "usama Shahihd"
+  
+  docker:
+    uses: usamasha-hotmail/usama-resuableworkflow/.github/workflows/buildandpublish.yml@main
+    with:
+        image_name: "usama image"
+        tag: "usama tag"
+
+    
