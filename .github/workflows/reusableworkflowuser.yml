@@ -12,7 +12,7 @@ jobs:
         run: echo "usama Shahihd"
   
   docker:
-    uses: usamasha-hotmail/usama-resuableworkflow/.github/workflows/buildandpublish.yml@main
+    uses: usamasha-hotmail/AWS-OIDC/.github/workflows/buildandpublish.yml@main
     with:
       image_name: "usamaimage"
       tag: "usamatag"
