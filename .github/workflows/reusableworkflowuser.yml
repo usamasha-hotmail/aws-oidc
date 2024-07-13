@@ -1,22 +1,24 @@
 name: CICD workflow from Sandbox to Production 
 
 on: 
-    workflow_dispatch:
+    workflow_dispatch:  
       inputs:
         Env-flow:
           description: "Select your env."
+          default: SandBox
           type: choice
           options: 
             - SandBox
             - Dev to Production
+          
 
 jobs:
   Build-Package:
     runs-on: ubuntu-latest
     
     steps:
-      - name: runonline
-        run: echo ${{inputs.Env-flow}}
+      - name: CompileCode
+        run: echo "Started Code Build and Package Creation"
   
   SandBox:
     needs: Build-Package
