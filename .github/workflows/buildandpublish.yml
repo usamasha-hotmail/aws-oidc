@@ -13,5 +13,5 @@ jobs:
      runs-on: ubuntu-latest
 
      steps:
-      - name: test
+      - name: ${{ inputs.tag }} Package execution
         run: echo ${{ inputs.image_name }} and ${{ inputs.tag }}
